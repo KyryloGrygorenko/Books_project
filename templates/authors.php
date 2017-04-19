@@ -15,17 +15,54 @@
         
     }
 </style>
+<form action="/index.php" method="get" >
+    <input type="hidden" name="page" value="books"/>
+    Sort by: 
+    <select name='sort'>
+        <option value="price">Price</option>
+        <option value="title">Title</option>
+    </select>
+    
+    Order: 
+    <select name='order'>
+        <option value="asc">ASC</option>
+        <option value="desc">DESC</option>
+    </select>
+    Items per page
+    <select name='per-page'>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+    </select>
+    
+    <button>Go</button>
+</form>
+
     <div class='books'>
-        <?php 
-        foreach ($authors as $key=>$value): ?>
+        <?php foreach ($authors_paginate->items as $key=>$value): ?>
             <div class='book-item'>
-            <div><?=$authors[$key]['AuthorName']?></div>
-            <hr>
-            <?=$authors[$key]['BookTitle']?>
-            <br>
-            <br>
-          
-            </div>
+                 <div><?=$value['AuthorName']?></div>
+                <hr>
+                <?=$value['BookTitle'] ?>
+                <br>
+                <br>
+            </div>  
         <?php endforeach ?>
-     <div>
-         <br clear='both'>
+        <br clear='both'>
+        <br>
+    <div>
+         
+         
+     <div class="pagination">
+        <?php
+        for($x =1; $x<= $authors_paginate->pages; $x++ ):?>
+
+            <a href="?page=authors&sort=title&order=asc&page_number=<?php echo $x; ?>&per-page=<?php echo $authors_paginate->perPage; ?>"> <?php echo $x; ?>  </a>
+
+        <?php endfor;?>
+    </div>
+    
+</div>

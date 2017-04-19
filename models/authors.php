@@ -1,4 +1,10 @@
 <?php
+
+function getSortedFields()
+{
+    return ['title', 'price'];
+}
+
 function findAllAuthors($link)
 {
     
