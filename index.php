@@ -2,6 +2,19 @@
 error_reporting(E_ALL);
 require 'includes/functions.php';
 
+//автозагрузка классов
+
+spl_autoload_register(function($className) {
+    $filePath = "classes/{$className}.php";
+
+    if (!file_exists($filePath)) {
+        die("file {$filePath} not found");
+    }
+
+    require_once($filePath);
+});
+
+
 
 /*$sql="select * from author";
 $res=mysqli_query($link,$sql);
@@ -14,6 +27,7 @@ echo '</pre>';
 die;*/
 
 $link = db_connect('localhost', 'root', '', 'mvc');
+$db= new PDO('mysql:dbname=mvc; host=localhost', 'root', '');
 
 define('ROOT', __DIR__ . '/');
 
@@ -37,6 +51,7 @@ require $template;
 $content = ob_get_clean();
 
 $date = date('Y');
+
 require 'templates/layout.php';
 
 // var_dump(requestGet('page'));

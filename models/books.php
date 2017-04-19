@@ -7,7 +7,25 @@ function getSortedFields()
 
 
 
-function findAllBooks($link, $sortField, $sortOrder)
+function findAllBooks($link, $sortField, $sortOrder,$page_book=1,$perPage=10)
+{
+    if (!in_array(strtolower($sortField), getSortedFields())) {
+        $sortField = 'price';
+    }
+    
+    if (!in_array(strtolower($sortOrder), ['asc', 'desc'])) {
+        $sortOrder = 'asc';
+    }
+    
+    $sql = "select * from book where status = 1 order by {$sortField} {$sortOrder} LIMIT $page_book,$perPage";
+   
+    $res = mysql_get_result($link, $sql);
+    // todo: make with: while() + mysqli_fetch_assoc()
+    return mysqli_fetch_all($res, MYSQLI_ASSOC);
+}
+
+
+/*function findAllBooks($link, $sortField, $sortOrder)
 {
     if (!in_array(strtolower($sortField), getSortedFields())) {
         $sortField = 'price';
@@ -20,12 +38,18 @@ function findAllBooks($link, $sortField, $sortOrder)
     $sql = "select * from book where status = 1 order by {$sortField} {$sortOrder}";
     $res = mysql_get_result($link, $sql);
     
+    
+    while(mysqli_fetch_assoc($res) !=null){
+        $res2[]=(mysqli_fetch_assoc($res));
+    }
+    debug($res2);
+    return $res2;
+    
     // todo: make with: while() + mysqli_fetch_assoc()
-    return mysqli_fetch_all($res, MYSQLI_ASSOC);
-}
+   
+}*/
 
-
-
+ 
 
 
 function findBookById($link, $id)

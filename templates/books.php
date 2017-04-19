@@ -30,12 +30,23 @@
         <option value="asc">ASC</option>
         <option value="desc">DESC</option>
     </select>
+    Books per page
+    <select name='per-page'>
+        <option value="5">5</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+    </select>
     
     <button>Go</button>
 </form>
 
+
 <div class='books'>
-    <?php foreach ($books as $key => $book) : ?>
+    <?php foreach ($book_paginate->books as $key => $book) : ?>
         <div class='book-item'>
             <div><?=$book['title']?></div>
             <hr>
@@ -45,5 +56,18 @@
             <a href="/index.php?page=book_item&amp;id=<?=$book['id']?>">Details</a>
         </div>
     <?php endforeach ?>
+    <br clear='both'>
+    <br>
+     <div class="pagination">
+        <?php
+        for($x =1; $x<= $book_paginate->pages; $x++ ):?>
+
+            <a href="?page=books&sort=title&order=asc&page_book=<?php echo $x; ?>&per-page=<?php echo $book_paginate->perPage; ?>"> <?php echo $x; ?>  </a>
+
+        <?php endfor;?>
+    </div>
+    
 </div>
+
+ 
 <br clear='both'>

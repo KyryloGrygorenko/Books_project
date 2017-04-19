@@ -64,3 +64,11 @@ function isFormValid()
     $captchaValid = $_SESSION['captcha_number'] == requestPost('security_number');
     return $captchaValid && trim(requestPost('username')) != '' && trim(requestPost('email')) != '' && trim(requestPost('message')) != '';
 }
+
+
+function debug ($variable) 
+{
+    echo '<pre>';
+    print_r($variable);
+    echo '</pre>';
+}

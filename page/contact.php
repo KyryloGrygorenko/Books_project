@@ -1,6 +1,8 @@
 <?php
 
 require ROOT . 'models/contact.php';
+$form= new contactForm(1,2,3);
+
 
 if (isRequestPost()) {
     // todo: добавить проверку капчи, задавать соответствующее значение для сообщения + менять капчу если успех
